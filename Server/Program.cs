@@ -1,3 +1,4 @@
+using MediatR;
 using Server.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,9 @@ var services = builder.Services;
 services.ConfigureIISIntegration();
 services.ConfigureSqlContext(builder.Configuration);
 services.ConfigureRepositoryManager();
+builder.Services.AddMediatR(typeof(Program).Assembly);
+
+
 
 services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
