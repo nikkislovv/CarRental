@@ -25,6 +25,13 @@ namespace Server.Controllers
             return Ok(carsDto);
         }
 
+        [HttpGet("{id}", Name = "GetCarById")]
+        public async Task<ActionResult> GetCarById([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            var product = await _mediator.Send(new GetCarByIdOuery(id, false), cancellationToken);
+
+            return Ok(product);
+        }
 
 
 

@@ -9,6 +9,7 @@ namespace Server.MapperProfiles
         public CarProfile()
         {
             CreateMap<Car, CarToShowDto>();
+
         }
     }
 }
