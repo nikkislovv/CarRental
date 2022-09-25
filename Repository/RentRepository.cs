@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,9 @@ namespace Repository
             Create(rent);
         }
 
+        public async Task<Rent> GetRentByIdAsync(Guid id, bool trackChanges, CancellationToken cancellationToken)
+        {
+            return await FindByCondition(e => e.Id.Equals(id), trackChanges).SingleOrDefaultAsync(cancellationToken);
+        }
     }
 }

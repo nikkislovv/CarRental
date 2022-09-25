@@ -12,6 +12,6 @@ namespace Contracts
         IRentRepository Rent { get; }
 
         void Save();
-        Task SaveAsync();
+        Task SaveAsync(CancellationToken cancellationToken);
     }
 }

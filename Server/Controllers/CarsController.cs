@@ -1,7 +1,9 @@
 ﻿using Contracts;
+using Entities.DataTransferObjects.CarDTO;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Commands;
 using Server.Queries;
 
 namespace Server.Controllers
@@ -33,6 +35,14 @@ namespace Server.Controllers
             return Ok(product);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateCarAsync([FromBody] CarToCreateDto carToCreateDto,
+            CancellationToken cancellationToken)
+        {
+            var carToReturn = await _mediator.Send(new CreateCarCommand(carToCreateDto), cancellationToken);
+
+            return CreatedAtRoute("GetCarById", new { id = carToReturn.Id }, carToReturn);
+        }
 
 
 

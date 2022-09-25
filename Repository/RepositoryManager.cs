@@ -42,9 +42,9 @@ namespace Repository
         {
             _repositoryContext.SaveChanges();
         }
-        public async Task SaveAsync()
+        public async Task SaveAsync(CancellationToken cancellationToken)
         {
-            await _repositoryContext.SaveChangesAsync();
+            await _repositoryContext.SaveChangesAsync(cancellationToken);
         }
 
     }

@@ -26,9 +26,4 @@
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Handlers\CommandHandlers\" />
-  </ItemGroup>
-
 </Project>

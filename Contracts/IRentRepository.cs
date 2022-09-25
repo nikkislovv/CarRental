@@ -10,5 +10,7 @@ namespace Contracts
     public interface IRentRepository
     {
         void CreateRent(Rent rent);
+        Task<Rent> GetRentByIdAsync(Guid id, bool trackChanges, CancellationToken cancellationToken);
+
     }
 }
