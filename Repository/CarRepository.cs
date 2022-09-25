@@ -24,13 +24,13 @@ namespace Repository
         {
             Delete(car);
         }
-        public async Task<Car> GetCarByIdAsync(Guid id, bool trackChanges)
+        public async Task<Car> GetCarByIdAsync(Guid id, bool trackChanges, CancellationToken cancellationToken)
         {
-            return await FindByCondition(e => e.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
+            return await FindByCondition(e => e.Id.Equals(id), trackChanges).SingleOrDefaultAsync(cancellationToken);
         }
-        public async Task<IEnumerable<Car>> GetAllCarsAsync(bool trackChanges)
+        public async Task<IEnumerable<Car>> GetAllCarsAsync(bool trackChanges, CancellationToken cancellationToken)
         {
-            return await FindAll(trackChanges).OrderBy(c=>c.Name).ToListAsync();
+            return await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync(cancellationToken);
         }
 
         public void UpdateCar(Car car)

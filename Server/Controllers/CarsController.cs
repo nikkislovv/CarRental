@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Server.Queries;
 
 namespace Server.Controllers
 {
@@ -11,15 +12,22 @@ namespace Server.Controllers
     {
         private readonly IMediator _mediator;
 
-        private readonly IRepositoryManager _repository;
-
-        public CarsController(IMediator mediator, IRepositoryManager repository)
+        public CarsController(IMediator mediator)
         {
             _mediator = mediator;
-            _repository = repository;
         }
 
-        
+        [HttpGet]
+        public async Task<IActionResult> GetCarsAsync(CancellationToken cancellationToken)
+        {
+            var carsDto = await _mediator.Send(new GetCarsQuery(false), cancellationToken);
+
+            return Ok(carsDto);
+        }
+
+
+
+
 
     }
 }

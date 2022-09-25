@@ -11,8 +11,8 @@ namespace Contracts
     {
         void CreateCar(Car car);
         void DeleteCar(Car car);
-        Task<IEnumerable<Car>> GetAllCarsAsync(bool trackChanges);
+        Task<IEnumerable<Car>> GetAllCarsAsync(bool trackChanges, CancellationToken cancellationToken);
         void UpdateCar(Car car);
-        Task<Car> GetCarByIdAsync(Guid id, bool trackChanges);
+        Task<Car> GetCarByIdAsync(Guid id, bool trackChanges, CancellationToken cancellationToken);
     }
 }

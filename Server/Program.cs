@@ -9,6 +9,7 @@ services.ConfigureIISIntegration();
 services.ConfigureSqlContext(builder.Configuration);
 services.ConfigureRepositoryManager();
 builder.Services.AddMediatR(typeof(Program).Assembly);
+services.AddAutoMapper(typeof(Program).Assembly);
 
 
 
