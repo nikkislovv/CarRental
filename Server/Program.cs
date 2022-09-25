@@ -29,6 +29,9 @@ else
     app.UseHsts();
 }
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
