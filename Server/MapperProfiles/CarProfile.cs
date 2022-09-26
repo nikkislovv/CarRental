@@ -10,6 +10,7 @@ namespace Server.MapperProfiles
         {
             CreateMap<Car, CarToShowDto>();
             CreateMap<CarToCreateDto, Car>();
+            CreateMap<CarToUpdateDto, Car>();
         }
     }
 }

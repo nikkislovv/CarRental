@@ -44,7 +44,22 @@ namespace Server.Controllers
             return CreatedAtRoute("GetCarById", new { id = carToReturn.Id }, carToReturn);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCarAsync([FromRoute] Guid id, [FromBody] CarToUpdateDto carToUpdateDto,
+            CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new UpdateCarCommand(carToUpdateDto, id), cancellationToken);
 
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCarAsync([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteCarCommand(id), cancellationToken);
+
+            return NoContent();
+        }
 
     }
 }
