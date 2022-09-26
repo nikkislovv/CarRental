@@ -18,7 +18,7 @@ namespace Server.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("{id}", Name = "GetRentById")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetRentByIdAsync([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var rentDto = await _mediator.Send(new GetRentByIdQuery(id, true), cancellationToken);
@@ -30,9 +30,9 @@ namespace Server.Controllers
         public async Task<IActionResult> CreateRentAsync([FromBody] RentToCreateDto rentToCreateDto,
             CancellationToken cancellationToken)
         {
-            var rentToReturn = await _mediator.Send(new CreateRentCommand(rentToCreateDto), cancellationToken);
+            await _mediator.Send(new CreateRentCommand(rentToCreateDto), cancellationToken);
 
-            return CreatedAtRoute("GetRentById", new { id = rentToReturn.Id }, rentToReturn);
+            return NoContent();
         }
     }
 }

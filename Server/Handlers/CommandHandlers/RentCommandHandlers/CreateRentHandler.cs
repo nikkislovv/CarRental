@@ -7,7 +7,7 @@ using Server.Commands.RentCommands;
 
 namespace Server.Handlers.CommandHandlers.RentCommandHandlers
 {
-    public class CreateRentHandler:IRequestHandler<CreateRentCommand,RentToShowDto>
+    public class CreateRentHandler : IRequestHandler<CreateRentCommand, Unit>
     {
         private readonly IRepositoryManager _repository;
 
@@ -19,15 +19,22 @@ namespace Server.Handlers.CommandHandlers.RentCommandHandlers
             _mapper = mapper;
         }
 
-        public async Task<RentToShowDto> Handle(CreateRentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateRentCommand request, CancellationToken cancellationToken)
         {
-            var rent = _mapper.Map<Rent>(request.RentToCreateDto);
+            var rentToCreate = _mapper.Map<Rent>(request.RentToCreateDto);
 
-            _repository.Rent.CreateRent(rent);
+            _repository.Rent.CreateRent(rentToCreate);
+
+            var car = await _repository.Car.GetCarByIdAsync(request.RentToCreateDto.CarId, true, cancellationToken);
+
+            if (car != null)
+            {
+                car.IsAvailable = false;
+            }
 
             await _repository.SaveAsync(cancellationToken);
 
-            return _mapper.Map<RentToShowDto>(rent);
+            return Unit.Value;
         }
 
 
