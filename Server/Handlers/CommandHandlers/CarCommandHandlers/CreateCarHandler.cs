@@ -4,8 +4,9 @@ using Entities.DataTransferObjects.CarDTO;
 using Entities.Models;
 using MediatR;
 using Server.Commands;
+using Server.Commands.CarCommands;
 
-namespace Server.Handlers.CommandHandlers
+namespace Server.Handlers.CommandHandlers.CarCommandHandlers
 {
     public class CreateCarHandler : IRequestHandler<CreateCarCommand, CarToShowDto>
     {

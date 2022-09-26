@@ -2,10 +2,10 @@
 using Entities.Models;
 using MediatR;
 
-namespace Server.Queries
+namespace Server.Queries.CarQueries
 {
     public class GetCarsQuery : IRequest<IEnumerable<CarToShowDto>>
-    { 
+    {
         public bool trackChanges { get; set; }
 
         public GetCarsQuery(bool trackChanges)

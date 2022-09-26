@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Server.Commands
+namespace Server.Commands.CarCommands
 {
     public class DeleteCarCommand : IRequest<Unit>
     {

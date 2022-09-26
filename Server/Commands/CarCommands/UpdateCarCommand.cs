@@ -1,7 +1,7 @@
 ﻿using Entities.DataTransferObjects.CarDTO;
 using MediatR;
 
-namespace Server.Commands
+namespace Server.Commands.CarCommands
 {
     public class UpdateCarCommand : IRequest<Unit>
     {

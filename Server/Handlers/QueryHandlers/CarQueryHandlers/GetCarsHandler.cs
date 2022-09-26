@@ -4,8 +4,9 @@ using Entities.DataTransferObjects.CarDTO;
 using Entities.Models;
 using MediatR;
 using Server.Queries;
+using Server.Queries.CarQueries;
 
-namespace Server.Handlers.QueryHandlers
+namespace Server.Handlers.QueryHandlers.CarHandlers
 {
     public class GetCarsHandler : IRequestHandler<GetCarsQuery, IEnumerable<CarToShowDto>>
     {

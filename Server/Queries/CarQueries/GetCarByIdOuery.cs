@@ -2,7 +2,7 @@
 using Entities.Models;
 using MediatR;
 
-namespace Server.Queries
+namespace Server.Queries.CarQueries
 {
     public class GetCarByIdOuery : IRequest<CarToShowDto>
     {

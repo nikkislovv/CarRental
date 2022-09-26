@@ -20,7 +20,11 @@ namespace Entities
         {
             modelBuilder.ApplyConfiguration(new CarConfiguration());
         }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseLazyLoadingProxies();
+        }
         public DbSet<Car> Cars { get; set; }
 
         public DbSet<Rent> Rents { get; set; }

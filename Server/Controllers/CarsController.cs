@@ -4,7 +4,9 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Commands;
+using Server.Commands.CarCommands;
 using Server.Queries;
+using Server.Queries.CarQueries;
 
 namespace Server.Controllers
 {
@@ -30,9 +32,9 @@ namespace Server.Controllers
         [HttpGet("{id}", Name = "GetCarById")]
         public async Task<ActionResult> GetCarById([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var product = await _mediator.Send(new GetCarByIdOuery(id, false), cancellationToken);
+            var carDto = await _mediator.Send(new GetCarByIdOuery(id, false), cancellationToken);
 
-            return Ok(product);
+            return Ok(carDto);
         }
 
         [HttpPost]

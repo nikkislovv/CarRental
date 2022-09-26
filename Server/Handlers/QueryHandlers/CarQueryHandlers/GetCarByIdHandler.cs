@@ -3,8 +3,9 @@ using Contracts;
 using Entities.DataTransferObjects.CarDTO;
 using MediatR;
 using Server.Queries;
+using Server.Queries.CarQueries;
 
-namespace Server.Handlers.QueryHandlers
+namespace Server.Handlers.QueryHandlers.CarHandlers
 {
     public class GetCarByIdHandler : IRequestHandler<GetCarByIdOuery, CarToShowDto>
     {

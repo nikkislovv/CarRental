@@ -1,8 +1,9 @@
 ﻿using Contracts;
 using MediatR;
 using Server.Commands;
+using Server.Commands.CarCommands;
 
-namespace Server.Handlers.CommandHandlers
+namespace Server.Handlers.CommandHandlers.CarCommandHandlers
 {
     public class DeleteCarHandler : IRequestHandler<DeleteCarCommand, Unit>
     {
@@ -16,7 +17,7 @@ namespace Server.Handlers.CommandHandlers
         public async Task<Unit> Handle(DeleteCarCommand request, CancellationToken cancellationToken)
         {
             var car = await _repository.Car.GetCarByIdAsync(request.Id, false, cancellationToken);
-            
+
             _repository.Car.DeleteCar(car);
 
             await _repository.SaveAsync(cancellationToken);
