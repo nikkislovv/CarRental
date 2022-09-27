@@ -23,7 +23,7 @@ namespace Server.Handlers.CommandHandlers.CarCommandHandlers
 
         public async Task<CarToShowDto> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
-            var car = _mapper.Map<Car>(request.CarToShow);
+            var car = _mapper.Map<Car>(request.CarToCreate);
 
             _repository.Car.CreateCar(car);
 

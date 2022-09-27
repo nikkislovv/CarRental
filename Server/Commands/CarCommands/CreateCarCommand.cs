@@ -5,11 +5,11 @@ namespace Server.Commands.CarCommands
 {
     public class CreateCarCommand : IRequest<CarToShowDto>
     {
-        public CarToCreateDto CarToShow { get; set; }
+        public CarToCreateDto CarToCreate { get; set; }
 
-        public CreateCarCommand(CarToCreateDto carToShow)
+        public CreateCarCommand(CarToCreateDto carToCreate)
         {
-            CarToShow = carToShow;
+            CarToCreate = carToCreate;
         }
     }
 }

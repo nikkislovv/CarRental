@@ -1,7 +1,9 @@
 using Contracts;
+using FluentValidation;
 using MediatR;
 using RentOperations;
 using Server.Extensions;
+using Server.PipelineBehaviors;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -13,7 +15,8 @@ services.ConfigureRepositoryManager();
 services.AddMediatR(typeof(Program).Assembly);
 services.AddAutoMapper(typeof(Program).Assembly);
 services.AddScoped<IRentManager, RentManager>();
-
+services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
