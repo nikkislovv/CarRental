@@ -1,4 +1,6 @@
+using Contracts;
 using MediatR;
+using RentOperations;
 using Server.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +10,9 @@ var services = builder.Services;
 services.ConfigureIISIntegration();
 services.ConfigureSqlContext(builder.Configuration);
 services.ConfigureRepositoryManager();
-builder.Services.AddMediatR(typeof(Program).Assembly);
+services.AddMediatR(typeof(Program).Assembly);
 services.AddAutoMapper(typeof(Program).Assembly);
-
+services.AddScoped<IRentManager, RentManager>();
 
 
 services.AddControllers();

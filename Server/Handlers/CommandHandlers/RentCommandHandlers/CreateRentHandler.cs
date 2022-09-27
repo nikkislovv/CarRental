@@ -13,10 +13,13 @@ namespace Server.Handlers.CommandHandlers.RentCommandHandlers
 
         private readonly IMapper _mapper;
 
-        public CreateRentHandler(IRepositoryManager repository, IMapper mapper)
+        private readonly IRentManager _rentManager;
+
+        public CreateRentHandler(IRepositoryManager repository, IMapper mapper, IRentManager rentManager)
         {
             _repository = repository;
             _mapper = mapper;
+            _rentManager = rentManager;
         }
 
         public async Task<Unit> Handle(CreateRentCommand request, CancellationToken cancellationToken)
@@ -25,12 +28,7 @@ namespace Server.Handlers.CommandHandlers.RentCommandHandlers
 
             _repository.Rent.CreateRent(rentToCreate);
 
-            var car = await _repository.Car.GetCarByIdAsync(request.RentToCreateDto.CarId, true, cancellationToken);
-
-            if (car != null)
-            {
-                car.IsAvailable = false;
-            }
+            await _rentManager.RentCar(request.RentToCreateDto.CarId, cancellationToken);
 
             await _repository.SaveAsync(cancellationToken);
 
