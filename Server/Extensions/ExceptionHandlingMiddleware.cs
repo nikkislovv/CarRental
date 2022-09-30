@@ -38,9 +38,11 @@ namespace Server.Extensions
         private int GetStatusCode(Exception exception) =>
             exception switch
             {
+                ArgumentNullException => StatusCodes.Status400BadRequest,
                 BadRequestException => StatusCodes.Status400BadRequest,
                 NotFoundException => StatusCodes.Status404NotFound,
                 FluentValidation.ValidationException => StatusCodes.Status422UnprocessableEntity,
+                OperationCanceledException => 499,
                 _ => StatusCodes.Status500InternalServerError
             };
     }

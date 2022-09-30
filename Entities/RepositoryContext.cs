@@ -14,6 +14,7 @@ namespace Entities
         public RepositoryContext(DbContextOptions options)
         : base(options)
         {
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,8 +23,8 @@ namespace Entities
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
         }
         public DbSet<Car> Cars { get; set; }
 

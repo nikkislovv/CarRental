@@ -1,0 +1,68 @@
+version: '3.4'
+
+services:
+  server:
+    image: ${DOCKER_REGISTRY-}server
+    depends_on:
+       - postgresserver
+    build:
+      context: .
+      dockerfile: Server/Dockerfile
+    ports:
+       - 8000:80
+    networks:
+       - car-rental
+
+  
+  postgresserver:
+     container_name: "postgresserver"
+     image: postgres:latest
+     ports:
+       - 5431:5432
+     environment:
+         POSTGRES_USER: postgres
+         POSTGRES_PASSWORD: nikita74
+         POSTGRES_DB: CarRentalDB
+     volumes:
+       - postgres-data:/var/lib/postgresql/data
+     networks:
+       - car-rental
+  
+
+  elasticsearch:
+     container_name: "elasticsearch"
+     image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
+     ports:
+        - 9200:9200
+     volumes:
+        - elasticsearch-data:/usr/share/elasticsearch/data
+     environment:
+        - xpack.monitoring.enabled=true
+        - xpack.watcher.enabled=false
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - discovery.type=single-node
+     networks:
+        - car-rental
+
+
+  kibana:
+     container_name: kibana
+     image: docker.elastic.co/kibana/kibana:7.16.1
+     ports:
+        - 5601:5601
+     depends_on:
+        - elasticsearch
+     environment:
+        - ELASTICSEARCH_URL=http://localhost:9200
+     networks:
+        - car-rental
+
+
+networks:
+  car-rental:
+    driver: bridge
+
+
+volumes:
+  elasticsearch-data:
+  postgres-data:

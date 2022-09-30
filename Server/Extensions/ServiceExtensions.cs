@@ -14,10 +14,10 @@ namespace Server.Extensions
             });
         }
 
-        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureNpgsqlContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<RepositoryContext>(opts =>
-            opts.UseNpgsql(configuration.GetConnectionString("sqlConnection"), b =>
+            opts.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), b =>
                b.MigrationsAssembly("Server")));
         }
 
