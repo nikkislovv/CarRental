@@ -4,6 +4,7 @@ using Entities.DataTransferObjects.RentDTO;
 using Entities.Models;
 using MediatR;
 using Server.Commands.RentCommands;
+using Server.Exeptions;
 
 namespace Server.Handlers.CommandHandlers.RentCommandHandlers
 {
@@ -24,6 +25,13 @@ namespace Server.Handlers.CommandHandlers.RentCommandHandlers
 
         public async Task<Unit> Handle(CreateRentCommand request, CancellationToken cancellationToken)
         {
+            var car = await _repository.Car.GetCarByIdAsync(request.RentToCreateDto.CarId, false, cancellationToken);
+
+            if (car == null)
+            {
+                throw new NotFoundException(nameof(car), request.RentToCreateDto.CarId);
+            }
+
             var rentToCreate = _mapper.Map<Rent>(request.RentToCreateDto);
 
             _repository.Rent.CreateRent(rentToCreate);

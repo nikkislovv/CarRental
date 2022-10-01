@@ -22,6 +22,7 @@ namespace Server.Handlers.QueryHandlers.CarHandlers
         public async Task<IEnumerable<CarToShowDto>> Handle(GetCarsQuery request, CancellationToken cancellationToken)
         {
             var cars = await _repository.Car.GetAllCarsAsync(request.trackChanges, cancellationToken);
+            //paging
             return _mapper.Map<IEnumerable<CarToShowDto>>(cars);
         }
     }

@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.DataTransferObjects.RentDTO;
 using MediatR;
+using Server.Exeptions;
 using Server.Queries.RentQueries;
 
 namespace Server.Handlers.QueryHandlers.RentQueryHandlers
@@ -20,6 +21,11 @@ namespace Server.Handlers.QueryHandlers.RentQueryHandlers
         public async Task<RentToShowDto> Handle(GetRentByIdQuery request, CancellationToken cancellationToken)
         {
             var rent = await _repository.Rent.GetRentByIdAsync(request.Id, request.trackChanges, cancellationToken);
+
+            if (rent == null)
+            {
+                throw new NotFoundException(nameof(rent), request.Id);
+            }
 
             return _mapper.Map<RentToShowDto>(rent);
         }

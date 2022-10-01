@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.DataTransferObjects.CarDTO;
 using MediatR;
+using Server.Exeptions;
 using Server.Queries;
 using Server.Queries.CarQueries;
 
@@ -20,8 +21,14 @@ namespace Server.Handlers.QueryHandlers.CarHandlers
 
         public async Task<CarToShowDto> Handle(GetCarByIdOuery request, CancellationToken cancellationToken)
         {
-            var carDto = await _repository.Car.GetCarByIdAsync(request.Id, request.trackChanges, cancellationToken);
-            return _mapper.Map<CarToShowDto>(carDto);
+            var car = await _repository.Car.GetCarByIdAsync(request.Id, request.trackChanges, cancellationToken);
+
+            if (car == null)
+            {
+                throw new NotFoundException(nameof(car), request.Id);
+            }
+
+            return _mapper.Map<CarToShowDto>(car);
         }
     }
 }

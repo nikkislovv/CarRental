@@ -3,6 +3,7 @@ using Contracts;
 using MediatR;
 using Server.Commands;
 using Server.Commands.CarCommands;
+using Server.Exeptions;
 
 namespace Server.Handlers.CommandHandlers.CarCommandHandlers
 {
@@ -22,6 +23,11 @@ namespace Server.Handlers.CommandHandlers.CarCommandHandlers
         public async Task<Unit> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
         {
             var car = await _repository.Car.GetCarByIdAsync(request.Id, true, cancellationToken);
+
+            if (car == null)
+            {
+                throw new NotFoundException(nameof(car), request.Id);
+            }
 
             _mapper.Map(request.carToUpdateDto, car);
 

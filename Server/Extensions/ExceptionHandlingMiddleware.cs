@@ -1,15 +1,19 @@
-﻿using SendGrid.Helpers.Errors.Model;
+﻿
+using SendGrid.Helpers.Errors.Model;
+using Server.Exeptions;
 using System.Text.Json;
 
 namespace Server.Extensions
 {
     public class ExceptionHandlingMiddleware
     {
-        //private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+
         private readonly RequestDelegate _next;
-        public ExceptionHandlingMiddleware(RequestDelegate next)
+        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
         public async Task InvokeAsync(HttpContext context)
         {
@@ -19,7 +23,8 @@ namespace Server.Extensions
             }
             catch (Exception e)
             {
-                //_logger.LogError(e, e.Message);
+                _logger.LogError(e, e.Message, DateTime.Now);
+
                 await HandleExceptionAsync(context, e);
             }
         }
@@ -40,7 +45,7 @@ namespace Server.Extensions
             {
                 ArgumentNullException => StatusCodes.Status400BadRequest,
                 BadRequestException => StatusCodes.Status400BadRequest,
-                NotFoundException => StatusCodes.Status404NotFound,
+                Exeptions.NotFoundException => StatusCodes.Status404NotFound,
                 FluentValidation.ValidationException => StatusCodes.Status422UnprocessableEntity,
                 OperationCanceledException => 499,
                 _ => StatusCodes.Status500InternalServerError
