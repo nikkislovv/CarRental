@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Server.Commands.CarCommands
 {
-    public class CreateCarCommand : IRequest<CarToShowDto>
+    public class CreateCarCommand : IRequest<Guid>
     {
         public CarToCreateDto CarToCreate { get; set; }
 

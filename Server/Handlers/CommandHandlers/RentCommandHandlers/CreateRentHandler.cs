@@ -8,7 +8,7 @@ using Server.Exeptions;
 
 namespace Server.Handlers.CommandHandlers.RentCommandHandlers
 {
-    public class CreateRentHandler : IRequestHandler<CreateRentCommand, Unit>
+    public class CreateRentHandler : IRequestHandler<CreateRentCommand, Guid>
     {
         private readonly IRepositoryManager _repository;
 
@@ -23,7 +23,7 @@ namespace Server.Handlers.CommandHandlers.RentCommandHandlers
             _rentManager = rentManager;
         }
 
-        public async Task<Unit> Handle(CreateRentCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateRentCommand request, CancellationToken cancellationToken)
         {
             var car = await _repository.Car.GetCarByIdAsync(request.RentToCreateDto.CarId, false, cancellationToken);
 
@@ -40,7 +40,7 @@ namespace Server.Handlers.CommandHandlers.RentCommandHandlers
 
             await _repository.SaveAsync(cancellationToken);
 
-            return Unit.Value;
+            return rentToCreate.Id;
         }
 
 

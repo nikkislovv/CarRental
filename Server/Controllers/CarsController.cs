@@ -32,7 +32,7 @@ namespace Server.Controllers
         [HttpGet("{id}", Name = "GetCarById")]
         public async Task<ActionResult> GetCarById([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var carDto = await _mediator.Send(new GetCarByIdOuery(id, false), cancellationToken);
+            var carDto = await _mediator.Send(new GetCarByIdQuery(id, false), cancellationToken);
 
             return Ok(carDto);
         }
@@ -41,9 +41,9 @@ namespace Server.Controllers
         public async Task<IActionResult> CreateCarAsync([FromBody] CarToCreateDto carToCreateDto,
             CancellationToken cancellationToken)
         {
-            var carToReturn = await _mediator.Send(new CreateCarCommand(carToCreateDto), cancellationToken);
+            var id = await _mediator.Send(new CreateCarCommand(carToCreateDto), cancellationToken);
 
-            return CreatedAtRoute("GetCarById", new { id = carToReturn.Id }, carToReturn);
+            return Created(nameof(CreateCarAsync), id);
         }
 
         [HttpPut("{id}")]

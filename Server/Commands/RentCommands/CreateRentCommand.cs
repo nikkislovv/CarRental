@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Server.Commands.RentCommands
 {
-    public class CreateRentCommand : IRequest<Unit>
+    public class CreateRentCommand : IRequest<Guid>
     {
         public RentToCreateDto RentToCreateDto { get; set; }
 

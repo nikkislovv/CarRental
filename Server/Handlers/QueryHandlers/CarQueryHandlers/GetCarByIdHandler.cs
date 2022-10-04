@@ -8,7 +8,7 @@ using Server.Queries.CarQueries;
 
 namespace Server.Handlers.QueryHandlers.CarHandlers
 {
-    public class GetCarByIdHandler : IRequestHandler<GetCarByIdOuery, CarToShowDto>
+    public class GetCarByIdHandler : IRequestHandler<GetCarByIdQuery, CarToShowDto>
     {
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace Server.Handlers.QueryHandlers.CarHandlers
             _mapper = mapper;
         }
 
-        public async Task<CarToShowDto> Handle(GetCarByIdOuery request, CancellationToken cancellationToken)
+        public async Task<CarToShowDto> Handle(GetCarByIdQuery request, CancellationToken cancellationToken)
         {
             var car = await _repository.Car.GetCarByIdAsync(request.Id, request.trackChanges, cancellationToken);
 

@@ -8,7 +8,7 @@ using Server.Commands.CarCommands;
 
 namespace Server.Handlers.CommandHandlers.CarCommandHandlers
 {
-    public class CreateCarHandler : IRequestHandler<CreateCarCommand, CarToShowDto>
+    public class CreateCarHandler : IRequestHandler<CreateCarCommand, Guid>
     {
         private readonly IRepositoryManager _repository;
 
@@ -21,7 +21,7 @@ namespace Server.Handlers.CommandHandlers.CarCommandHandlers
             _mapper = mapper;
         }
 
-        public async Task<CarToShowDto> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
             var car = _mapper.Map<Car>(request.CarToCreate);
 
@@ -29,7 +29,7 @@ namespace Server.Handlers.CommandHandlers.CarCommandHandlers
 
             await _repository.SaveAsync(cancellationToken);
 
-            return _mapper.Map<CarToShowDto>(car);
+            return car.Id;
         }
     }
 }

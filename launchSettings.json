@@ -7,7 +7,7 @@
         "elasticsearch": "StartWithoutDebugging",
         "kibana": "StartWithoutDebugging",
         "postgresserver": "StartWithoutDebugging",
-        "server": "StartWithoutDebugging"
+        "server": "DoNotStart"
       }
     }
   }

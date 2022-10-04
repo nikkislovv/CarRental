@@ -30,9 +30,9 @@ namespace Server.Controllers
         public async Task<IActionResult> CreateRentAsync([FromBody] RentToCreateDto rentToCreateDto,
             CancellationToken cancellationToken)
         {
-            await _mediator.Send(new CreateRentCommand(rentToCreateDto), cancellationToken);
+            var id = await _mediator.Send(new CreateRentCommand(rentToCreateDto), cancellationToken);
 
-            return NoContent();
+            return Created(nameof(CreateRentAsync), id);
         }
     }
 }
