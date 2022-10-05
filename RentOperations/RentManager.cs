@@ -13,7 +13,7 @@ namespace RentOperations
 
         public async Task RentCar(Guid id, CancellationToken cancellationToken)
         {
-            var car = await _repository.Car.GetCarByIdAsync(id, true, cancellationToken);
+            var car = await _repository.Car.GetCarByIdAsync(id, false, cancellationToken);
 
             if (car != null)
             {
