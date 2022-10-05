@@ -3,9 +3,9 @@ using Server.Commands.CarCommands;
 
 namespace Server.Validation
 {
-    public class CarToCreateDtoValidator : AbstractValidator<CreateCarCommand>
+    public class CreateCarCommandValidator : AbstractValidator<CreateCarCommand>
     {
-        public CarToCreateDtoValidator()
+        public CreateCarCommandValidator()
         {
             RuleFor(x => x.CarToCreate.Name).NotEmpty().MaximumLength(30);
         }
